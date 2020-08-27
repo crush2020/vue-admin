@@ -6,3 +6,11 @@ export function getList() {
     method: 'get'
   })
 }
+
+export function getList1(page, limit) {
+  return request({
+    url: `/DeviceTypes/${page}&${limit}`,
+    method: 'get'
+  })
+}
+

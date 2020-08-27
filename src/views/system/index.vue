@@ -16,7 +16,7 @@
         :current-page="currentPage"
         :page-sizes="[20, 30, 40, 50]"
         :page-size="pagesize"
-        :total="page"
+        :total="count"
         layout="total, sizes, prev, pager, next, jumper"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"/>
@@ -67,14 +67,13 @@
 </template>
 
 <script>
-import { getList } from '@/utils/network/index'
+import { getList, getList1 } from '@/utils/network/index'
 
 export default {
   data() {
     return {
       dialogFormVisible: false,
       dialogFormVisible1: false,
-      currentPage: 1,
       formLabelWidth: '120px',
       height: '',
       tableData: [
@@ -87,13 +86,15 @@ export default {
       ],
       form: {},
       form1: {},
-      page: 400,
+      count: 400,
+      currentPage: 1,
       pagesize: 20
     }
   },
   created() {
     getList().then(res => {
       this.tableData = res
+      this.count = res.length
     })
     this.height = window.innerHeight - window.innerHeight * 0.13 - 80 + 'px'
   },
@@ -154,10 +155,23 @@ export default {
       this.form = {}
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
+      // 每页多少条
+      const page = this.currentPage
+      const limit = val
+      getList1(page, limit).then(res => {
+        console.log(res)
+        this.count = res.count
+        this.tableData = res.table
+      })
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`)
+      // 当前多少页
+      const page = val
+      const limit = this.pagesize
+      getList1(page, limit).then(res => {
+        this.count = res.count
+        this.tableData = res.table
+      })
     }
   }
 }
