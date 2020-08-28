@@ -21,7 +21,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"/>
     </div>
-    <el-dialog :visible.sync="dialogFormVisible" title="新增设备类型" @open="open">
+    <el-dialog :visible.sync="dialogFormVisible" :close-on-click-modal="false" title="新增设备类型" @open="open">
       <el-form :model="form">
         <el-form-item :label-width="formLabelWidth" label="类型名称">
           <el-input v-model="form.deviceName" auto-complete="off"/>
@@ -42,7 +42,7 @@
         <el-button type="success" @click="claear">重置</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="dialogFormVisible1" title="编辑设备类型">
+    <el-dialog :visible.sync="dialogFormVisible1" :close-on-click-modal="false" title="编辑设备类型">
       <el-form :model="form1">
         <el-form-item :label-width="formLabelWidth" label="类型名称">
           <el-input v-model="form1.deviceName" auto-complete="off"/>

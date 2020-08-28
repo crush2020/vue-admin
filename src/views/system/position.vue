@@ -21,7 +21,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"/>
     </div>
-    <el-dialog :visible.sync="dialogFormVisible" title="新增位置" @open="open">
+    <el-dialog :visible.sync="dialogFormVisible" :close-on-click-modal="false" title="新增位置" @open="open">
       <el-form :model="form">
         <el-form-item :label-width="formLabelWidth" label="位置名称">
           <el-input v-model="form.positionName" auto-complete="off"/>
@@ -42,7 +42,7 @@
         <el-button type="success" @click="claear">重置</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="dialogFormVisible1" title="编辑位置">
+    <el-dialog :visible.sync="dialogFormVisible1" :close-on-click-modal="false" title="编辑位置">
       <el-form :model="form1">
         <el-form-item :label-width="formLabelWidth" label="位置名称">
           <el-input v-model="form1.positionName" auto-complete="off"/>

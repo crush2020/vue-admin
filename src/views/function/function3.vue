@@ -22,7 +22,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"/>
     </div>
-    <el-dialog :visible.sync="dialogFormVisible" title="新增设备类型" @open="open">
+    <el-dialog :visible.sync="dialogFormVisible" :close-on-click-modal="false" title="新增设备类型" @open="open">
       <el-form :model="form">
         <el-form-item :label-width="formLabelWidth" label="阈值系数参数">
           <el-input v-model="form.thresholdParameter" auto-complete="off"/>
@@ -72,10 +72,10 @@
       </el-form>
       <el-form :inline="true" :model="form">
         <el-form-item :label-width="formLabelWidth" label="阈值基数参数">
-          <el-input v-model="form.thresholdValue2" :disabled="!tableData.isscope" placeholder="输入阈值基数参数，值为小数"/>
+          <el-input v-model="form.thresholdValue2" :disabled="!form.isscope" placeholder="输入阈值基数参数，值为小数"/>
         </el-form-item>
         <el-form-item>
-          <el-select v-model="form.condition2" :disabled="!tableData.isscope" placeholder="判断设置">
+          <el-select v-model="form.condition2" :disabled="!form.isscope" placeholder="判断设置">
             <el-option label="大于" value="0"/>
             <el-option label="小于" value="1"/>
             <el-option label="等于" value="2"/>
@@ -83,7 +83,7 @@
             <el-option label="小于等于" value="4"/>
           </el-select>
           <el-switch
-            v-model="tableData.isscope"
+            v-model="form.isscope"
             active-color="#13ce66"
             inactive-color="#ff4949"/>
         </el-form-item>
@@ -94,8 +94,14 @@
         <el-button type="success" @click="claear">重置</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="dialogFormVisible1" title="编辑设备类型">
+    <el-dialog :visible.sync="dialogFormVisible1" :close-on-click-modal="false" title="新增设备类型" @open="open">
       <el-form :model="form1">
+        <el-form-item :label-width="formLabelWidth" label="阈值系数参数">
+          <el-input v-model="form1.thresholdParameter" auto-complete="off"/>
+        </el-form-item>
+        <el-form-item :label-width="formLabelWidth" label="备注">
+          <el-input v-model="form1.remark" auto-complete="off"/>
+        </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="设备类型">
           <el-select v-model="form1.deviceName" placeholder="请选择">
             <el-option
@@ -105,22 +111,58 @@
               :value="item.deviceName"/>
           </el-select>
         </el-form-item>
-        <el-form-item :label-width="formLabelWidth" label="位置类型">
-          <el-select v-model="form1.positionName" placeholder="请选择">
+        <el-form-item :label-width="formLabelWidth" label="级别">
+          <el-select v-model="form1.levelId" placeholder="请选择">
             <el-option
               v-for="item in positionoption"
               :key="item.value"
-              :label="item.positionName"
-              :value="item.positionName"/>
+              :label="item.level"
+              :value="item.id"/>
           </el-select>
         </el-form-item>
-        <el-form-item :label-width="formLabelWidth" label="等级">
-          <el-input v-model="form1.grade" auto-complete="off"/>
+        <el-form-item :label-width="formLabelWidth" label="多点位置">
+          <el-select v-model="form1.mplocation" placeholder="请选择多点位置">
+            <el-option label="深基点" value="0"/>
+            <el-option label="中基点" value="1"/>
+            <el-option label="浅基点" value="2"/>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <el-form :inline="true" :model="form">
+        <el-form-item :label-width="formLabelWidth" label="阈值基数参数">
+          <el-input v-model="form1.thresholdValue1" placeholder="输入阈值基数参数，值为小数"/>
+        </el-form-item>
+        <el-form-item>
+          <el-select v-model="form1.condition1" placeholder="判断设置">
+            <el-option label="大于" value="0"/>
+            <el-option label="小于" value="1"/>
+            <el-option label="等于" value="2"/>
+            <el-option label="大于等于" value="3"/>
+            <el-option label="小于等于" value="4"/>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <el-form :inline="true" :model="form">
+        <el-form-item :label-width="formLabelWidth" label="阈值基数参数">
+          <el-input v-model="form1.thresholdValue2" :disabled="!form1.isscope" placeholder="输入阈值基数参数，值为小数"/>
+        </el-form-item>
+        <el-form-item>
+          <el-select v-model="form1.condition2" :disabled="!form1.isscope" placeholder="判断设置">
+            <el-option label="大于" value="0"/>
+            <el-option label="小于" value="1"/>
+            <el-option label="等于" value="2"/>
+            <el-option label="大于等于" value="3"/>
+            <el-option label="小于等于" value="4"/>
+          </el-select>
+          <el-switch
+            v-model="form1.isscope"
+            active-color="#13ce66"
+            inactive-color="#ff4949"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="cancel1">取 消</el-button>
-        <el-button type="primary" @click="definite1">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+        <el-button type="primary" @click="definite">确 定</el-button>
         <el-button type="success" @click="claear">重置</el-button>
       </div>
     </el-dialog>
