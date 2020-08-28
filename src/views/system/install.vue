@@ -1,6 +1,6 @@
 <template>
   <div class="tablema">
-    <el-button class="top-button" type="primary" @click="resetDateFilter">新增类型</el-button>
+    <el-button class="top-button" type="primary" @click="resetDateFilter">新增安装位置</el-button>
     <el-table :data="tableData" :height="height" border stripe style="width: 100%">
       <el-table-column prop="name" label="类型名称"/>
       <el-table-column prop="remark" label="备注"/>
@@ -21,7 +21,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"/>
     </div>
-    <el-dialog :visible.sync="dialogFormVisible" title="新增设备类型" @open="open">
+    <el-dialog :visible.sync="dialogFormVisible" title="新增安装位置" @open="open">
       <el-form :model="form">
         <el-form-item :label-width="formLabelWidth" label="类型名称">
           <el-input v-model="form.name" auto-complete="off"/>
@@ -42,7 +42,7 @@
         <el-button type="success" @click="claear">重置</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="dialogFormVisible1" title="编辑设备类型">
+    <el-dialog :visible.sync="dialogFormVisible1" title="编辑安装位置">
       <el-form :model="form1">
         <el-form-item :label-width="formLabelWidth" label="类型名称">
           <el-input v-model="form1.name" auto-complete="off"/>

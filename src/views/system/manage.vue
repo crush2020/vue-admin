@@ -1,9 +1,11 @@
 <template>
   <div class="tablema">
-    <el-button class="top-button" type="primary" @click="resetDateFilter">新增类型</el-button>
+    <el-button class="top-button" type="primary" @click="resetDateFilter">新增设备管理</el-button>
     <el-table :data="tableData" :height="height" border stripe style="width: 100%">
-      <el-table-column prop="deviceName" label="类型名称"/>
-      <el-table-column prop="remark" label="备注"/>
+      <el-table-column prop="number" label="设备编号"/>
+      <el-table-column prop="deviceName" label="所属设备类型"/>
+      <el-table-column prop="name" label="所属安装位置"/>
+      <el-table-column prop="positionName" label="所属位置类型"/>
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -21,20 +23,56 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"/>
     </div>
-    <el-dialog :visible.sync="dialogFormVisible" title="新增设备类型" @open="open">
+    <el-dialog :visible.sync="dialogFormVisible" title="新增设备设备管理" @open="open">
       <el-form :model="form">
-        <el-form-item :label-width="formLabelWidth" label="类型名称">
-          <el-input v-model="form.deviceName" auto-complete="off"/>
+        <el-form-item :label-width="formLabelWidth" label="设备类型">
+          <el-select v-model="form.deviceName" placeholder="请选择">
+            <el-option
+              v-for="item in indexoption"
+              :key="item.value"
+              :label="item.deviceName"
+              :value="item.deviceName"/>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label-width="formLabelWidth" label="位置类型">
+          <el-select v-model="form.positionName" placeholder="请选择">
+            <el-option
+              v-for="item in positionoption"
+              :key="item.value"
+              :label="item.positionName"
+              :value="item.positionName"/>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label-width="formLabelWidth" label="安装位置">
+          <el-select v-model="form.name" placeholder="请选择">
+            <el-option
+              v-for="item in installoption"
+              :key="item.value"
+              :label="item.name"
+              :value="item.name"/>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label-width="formLabelWidth" label="工作面">
+          <el-select v-model="form.workingFaceName" placeholder="请选择">
+            <el-option
+              v-for="item in workoption"
+              :key="item.value"
+              :label="item.name"
+              :value="item.name"/>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label-width="formLabelWidth" label="设备编号">
+          <el-input v-model="form.number" auto-complete="off"/>
+        </el-form-item>
+        <el-form-item :label-width="formLabelWidth" label="计量单位">
+          <el-input v-model="form.unit" auto-complete="off"/>
+        </el-form-item>
+        <el-form-item :label-width="formLabelWidth" label="初始值">
+          <el-input v-model="form.initialValue" auto-complete="off"/>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="备注">
           <el-input v-model="form.remark" auto-complete="off"/>
         </el-form-item>
-        <!-- <el-form-item :label-width="formLabelWidth" label="活动区域">
-          <el-select v-model="form.region" placeholder="请选择活动区域">
-            <el-option label="区域一" value="shanghai"/>
-            <el-option label="区域二" value="beijing"/>
-          </el-select>
-        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="cancel">取 消</el-button>
@@ -42,20 +80,56 @@
         <el-button type="success" @click="claear">重置</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="dialogFormVisible1" title="编辑设备类型">
+    <el-dialog :visible.sync="dialogFormVisible1" title="编辑设备设备管理">
       <el-form :model="form1">
-        <el-form-item :label-width="formLabelWidth" label="类型名称">
-          <el-input v-model="form1.deviceName" auto-complete="off"/>
+        <el-form-item :label-width="formLabelWidth" label="设备类型">
+          <el-select v-model="form1.deviceName" placeholder="请选择">
+            <el-option
+              v-for="item in indexoption"
+              :key="item.value"
+              :label="item.deviceName"
+              :value="item.deviceName"/>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label-width="formLabelWidth" label="位置类型">
+          <el-select v-model="form1.positionName" placeholder="请选择">
+            <el-option
+              v-for="item in positionoption"
+              :key="item.value"
+              :label="item.positionName"
+              :value="item.positionName"/>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label-width="formLabelWidth" label="安装位置">
+          <el-select v-model="form1.name" placeholder="请选择">
+            <el-option
+              v-for="item in installoption"
+              :key="item.value"
+              :label="item.name"
+              :value="item.name"/>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label-width="formLabelWidth" label="工作面">
+          <el-select v-model="form1.workingFaceName" placeholder="请选择">
+            <el-option
+              v-for="item in workoption"
+              :key="item.value"
+              :label="item.name"
+              :value="item.name"/>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label-width="formLabelWidth" label="设备编号">
+          <el-input v-model="form1.number" auto-complete="off"/>
+        </el-form-item>
+        <el-form-item :label-width="formLabelWidth" label="计量单位">
+          <el-input v-model="form1.unit" auto-complete="off"/>
+        </el-form-item>
+        <el-form-item :label-width="formLabelWidth" label="初始值">
+          <el-input v-model="form1.initialValue" auto-complete="off"/>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="备注">
           <el-input v-model="form1.remark" auto-complete="off"/>
         </el-form-item>
-        <!-- <el-form-item :label-width="formLabelWidth" label="活动区域">
-          <el-select v-model="form.region" placeholder="请选择活动区域">
-            <el-option label="区域一" value="shanghai"/>
-            <el-option label="区域二" value="beijing"/>
-          </el-select>
-        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="cancel1">取 消</el-button>
@@ -67,7 +141,11 @@
 </template>
 
 <script>
-import { indexGetList, indexGetList1 } from '@/utils/network/index'
+import { manageGetList, manageGetList1 } from '@/utils/network/manage'
+import { indexGetList } from '@/utils/network/index'
+import { installGetList } from '@/utils/network/install'
+import { positionGetList } from '@/utils/network/position'
+import { workGetList } from '@/utils/network/workface'
 
 export default {
   data() {
@@ -78,21 +156,41 @@ export default {
       height: '',
       tableData: [
         {
-          deviceName: '裂缝计1',
-          id: 'a566b83e-5a83-43f7-b8c7-107525c05918',
-          isgroup: 'true',
-          remark: '无'
+          deviceName: '固定测斜仪',
+          deviceTypeId: 1,
+          distance: '36543',
+          expr1: 1,
+          id: 32,
+          initialValue: 6483,
+          installationSite: 9,
+          isgroup: false,
+          name: '254',
+          number: '63643',
+          positionName: '左帮',
+          positionTypeId: 1,
+          remark: '456',
+          roadwayType: 0,
+          unit: '3463',
+          workingFaceID: 1,
+          workingFaceName: '113300',
+          x: 0,
+          y: 0,
+          z: 0
         }
       ],
       form: {},
       form1: {},
+      indexoption: {},
+      installoption: {},
+      positionoption: {},
+      workoption: {},
       count: 400,
       currentPage: 1,
       pagesize: 20
     }
   },
   created() {
-    indexGetList().then(res => {
+    manageGetList().then(res => {
       this.tableData = res
       this.count = res.length
     })
@@ -104,6 +202,18 @@ export default {
   methods: {
     resetDateFilter() {
       this.dialogFormVisible = !this.dialogFormVisible
+      indexGetList().then(res => {
+        this.indexoption = res
+      })
+      installGetList().then(res => {
+        this.installoption = res
+      })
+      positionGetList().then(res => {
+        this.positionoption = res
+      })
+      workGetList().then(res => {
+        this.workoption = res
+      })
     },
     handleEdit(index, row) {
       this.form1 = row
@@ -158,7 +268,7 @@ export default {
       // 每页多少条
       const page = this.currentPage
       const limit = val
-      indexGetList1(page, limit).then(res => {
+      manageGetList1(page, limit).then(res => {
         console.log(res)
         this.count = res.count
         this.tableData = res.table
@@ -168,7 +278,7 @@ export default {
       // 当前多少页
       const page = val
       const limit = this.pagesize
-      indexGetList1(page, limit).then(res => {
+      manageGetList1(page, limit).then(res => {
         this.count = res.count
         this.tableData = res.table
       })

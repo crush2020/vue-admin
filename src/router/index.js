@@ -104,12 +104,6 @@ export const constantRouterMap = [
         meta: { title: '报警级别设置', icon: 'message' }
       },
       {
-        path: 'function2',
-        name: 'function2',
-        component: () => import('@/views/function/function2'),
-        meta: { title: '决策意见', icon: 'message' }
-      },
-      {
         path: 'function3',
         name: 'function3',
         component: () => import('@/views/function/function3'),

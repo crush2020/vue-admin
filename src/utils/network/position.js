@@ -1,13 +1,13 @@
 import request from '@/utils/request'
 
-export function PositionGetList() {
+export function positionGetList() {
   return request({
     url: '/PositionTypes',
     method: 'get'
   })
 }
 
-export function PositionGetList1(page, limit) {
+export function positionGetList1(page, limit) {
   return request({
     url: `/PositionTypes/${page}&${limit}`,
     method: 'get'

@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { PositionGetList, PositionGetList1 } from '@/utils/network/position'
+import { positionGetList, positionGetList1 } from '@/utils/network/position'
 
 export default {
   data() {
@@ -91,7 +91,7 @@ export default {
     }
   },
   created() {
-    PositionGetList().then(res => {
+    positionGetList().then(res => {
       this.tableData = res
       this.count = res.length
     })
@@ -157,7 +157,7 @@ export default {
       // 每页多少条
       const page = this.currentPage
       const limit = val
-      PositionGetList1(page, limit).then(res => {
+      positionGetList1(page, limit).then(res => {
         console.log(res)
         this.count = res.count
         this.tableData = res.table
@@ -167,7 +167,7 @@ export default {
       // 当前多少页
       const page = val
       const limit = this.pagesize
-      PositionGetList1(page, limit).then(res => {
+      positionGetList1(page, limit).then(res => {
         this.count = res.count
         this.tableData = res.table
       })

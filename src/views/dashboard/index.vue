@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">采煤工作面测点布置平面示意图</div>
+    <div class="dashboard-text">欢迎来到智慧智慧分析系统</div>
   </div>
 </template>
 
