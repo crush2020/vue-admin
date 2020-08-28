@@ -1,8 +1,8 @@
 <template>
   <div class="tablema">
-    <el-button class="top-button" type="primary" @click="resetDateFilter">新增类型</el-button>
+    <el-button class="top-button" type="primary" @click="resetDateFilter">新增工作面</el-button>
     <el-table :data="tableData" :height="height" border stripe style="width: 100%">
-      <el-table-column prop="deviceName" label="类型名称"/>
+      <el-table-column prop="name" label="工作面名称"/>
       <el-table-column prop="remark" label="备注"/>
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
@@ -21,10 +21,10 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"/>
     </div>
-    <el-dialog :visible.sync="dialogFormVisible" title="新增设备类型" @open="open">
+    <el-dialog :visible.sync="dialogFormVisible" title="新增工作面" @open="open">
       <el-form :model="form">
-        <el-form-item :label-width="formLabelWidth" label="类型名称">
-          <el-input v-model="form.deviceName" auto-complete="off"/>
+        <el-form-item :label-width="formLabelWidth" label="工作面名称">
+          <el-input v-model="form.name" auto-complete="off"/>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="备注">
           <el-input v-model="form.remark" auto-complete="off"/>
@@ -42,10 +42,10 @@
         <el-button type="success" @click="claear">重置</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="dialogFormVisible1" title="编辑设备类型">
+    <el-dialog :visible.sync="dialogFormVisible1" title="编辑工作面">
       <el-form :model="form1">
-        <el-form-item :label-width="formLabelWidth" label="类型名称">
-          <el-input v-model="form1.deviceName" auto-complete="off"/>
+        <el-form-item :label-width="formLabelWidth" label="工作面名称">
+          <el-input v-model="form1.name" auto-complete="off"/>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="备注">
           <el-input v-model="form1.remark" auto-complete="off"/>
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { indexGetList, indexGetList1 } from '@/utils/network/index'
+import { workGetList, workGetList1 } from '@/utils/network/workface'
 
 export default {
   data() {
@@ -78,9 +78,8 @@ export default {
       height: '',
       tableData: [
         {
-          deviceName: '裂缝计1',
-          id: 'a566b83e-5a83-43f7-b8c7-107525c05918',
-          isgroup: 'true',
+          id: 1,
+          name: 'true',
           remark: '无'
         }
       ],
@@ -92,7 +91,7 @@ export default {
     }
   },
   created() {
-    indexGetList().then(res => {
+    workGetList().then(res => {
       this.tableData = res
       this.count = res.length
     })
@@ -158,7 +157,7 @@ export default {
       // 每页多少条
       const page = this.currentPage
       const limit = val
-      indexGetList1(page, limit).then(res => {
+      workGetList1(page, limit).then(res => {
         console.log(res)
         this.count = res.count
         this.tableData = res.table
@@ -168,7 +167,7 @@ export default {
       // 当前多少页
       const page = val
       const limit = this.pagesize
-      indexGetList1(page, limit).then(res => {
+      workGetList1(page, limit).then(res => {
         this.count = res.count
         this.tableData = res.table
       })

@@ -2,14 +2,14 @@ import request from '@/utils/request'
 
 export function indexGetList() {
   return request({
-    url: '/DeviceTypes',
+    url: '/DeviceViews',
     method: 'get'
   })
 }
 
 export function indexGetList1(page, limit) {
   return request({
-    url: `/DeviceTypes/${page}&${limit}`,
+    url: `/DeviceViews/${page}&${limit}`,
     method: 'get'
   })
 }

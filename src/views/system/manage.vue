@@ -1,81 +1,177 @@
 <template>
   <div class="tablema">
-    <el-button @click="resetDateFilter">新增类型</el-button>
-    <el-button @click="resetDateFilter">条件查询</el-button>
-    <el-table :data="tableData" border="true" style="width: 100%">
-      <el-table-column label="编号" width="220">
+    <el-button class="top-button" type="primary" @click="resetDateFilter">新增类型</el-button>
+    <el-table :data="tableData" :height="height" border stripe style="width: 100%">
+      <el-table-column prop="deviceName" label="类型名称"/>
+      <el-table-column prop="remark" label="备注"/>
+      <el-table-column label="操作" width="200">
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.date }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="设备名称" width="220">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.data1 }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="所属设备类型" width="220">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.data1 }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="所属安装位置" width="220">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.data1 }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="所属位置类型" width="220">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.data1 }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <div class="block">
+      <el-pagination
+        :current-page="currentPage"
+        :page-sizes="[20, 30, 40, 50]"
+        :page-size="pagesize"
+        :total="count"
+        layout="total, sizes, prev, pager, next, jumper"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"/>
+    </div>
+    <el-dialog :visible.sync="dialogFormVisible" title="新增设备类型" @open="open">
+      <el-form :model="form">
+        <el-form-item :label-width="formLabelWidth" label="类型名称">
+          <el-input v-model="form.deviceName" auto-complete="off"/>
+        </el-form-item>
+        <el-form-item :label-width="formLabelWidth" label="备注">
+          <el-input v-model="form.remark" auto-complete="off"/>
+        </el-form-item>
+        <!-- <el-form-item :label-width="formLabelWidth" label="活动区域">
+          <el-select v-model="form.region" placeholder="请选择活动区域">
+            <el-option label="区域一" value="shanghai"/>
+            <el-option label="区域二" value="beijing"/>
+          </el-select>
+        </el-form-item> -->
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="cancel">取 消</el-button>
+        <el-button type="primary" @click="definite">确 定</el-button>
+        <el-button type="success" @click="claear">重置</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog :visible.sync="dialogFormVisible1" title="编辑设备类型">
+      <el-form :model="form1">
+        <el-form-item :label-width="formLabelWidth" label="类型名称">
+          <el-input v-model="form1.deviceName" auto-complete="off"/>
+        </el-form-item>
+        <el-form-item :label-width="formLabelWidth" label="备注">
+          <el-input v-model="form1.remark" auto-complete="off"/>
+        </el-form-item>
+        <!-- <el-form-item :label-width="formLabelWidth" label="活动区域">
+          <el-select v-model="form.region" placeholder="请选择活动区域">
+            <el-option label="区域一" value="shanghai"/>
+            <el-option label="区域二" value="beijing"/>
+          </el-select>
+        </el-form-item> -->
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="cancel1">取 消</el-button>
+        <el-button type="primary" @click="definite1">确 定</el-button>
+        <el-button type="success" @click="claear">重置</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { indexGetList, indexGetList1 } from '@/utils/network/index'
+
 export default {
   data() {
     return {
+      dialogFormVisible: false,
+      dialogFormVisible1: false,
+      formLabelWidth: '120px',
+      height: '',
       tableData: [
         {
-          date: '1',
-          name: '应力传感器',
-          data1: '好',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          date: '1',
-          name: '应力传感器',
-          data1: '好',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          date: '1',
-          name: '应力传感器',
-          data1: '好',
-          address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          date: '1',
-          name: '应力传感器',
-          data1: '好',
-          address: '上海市普陀区金沙江路 1518 弄'
+          deviceName: '裂缝计1',
+          id: 'a566b83e-5a83-43f7-b8c7-107525c05918',
+          isgroup: 'true',
+          remark: '无'
         }
-      ]
+      ],
+      form: {},
+      form1: {},
+      count: 400,
+      currentPage: 1,
+      pagesize: 20
     }
   },
+  created() {
+    indexGetList().then(res => {
+      this.tableData = res
+      this.count = res.length
+    })
+    this.height = window.innerHeight - window.innerHeight * 0.13 - 80 + 'px'
+  },
+  mounted() {
+
+  },
   methods: {
+    resetDateFilter() {
+      this.dialogFormVisible = !this.dialogFormVisible
+    },
     handleEdit(index, row) {
-      console.log(index, row)
+      this.form1 = row
+      this.dialogFormVisible1 = true
     },
     handleDelete(index, row) {
-      console.log(index, row)
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
+    cancel() {
+      this.dialogFormVisible = !this.dialogFormVisible
+      this.$message('已取消新增')
+    },
+    definite() {
+      this.dialogFormVisible = !this.dialogFormVisible
+      this.$message({
+        message: '新增成功',
+        type: 'success'
+      })
+    },
+    cancel1() {
+      this.dialogFormVisible1 = !this.dialogFormVisible1
+      this.$message('已取消编辑')
+    },
+    definite1() {
+      this.dialogFormVisible1 = !this.dialogFormVisible1
+      this.$message({
+        message: '编辑成功',
+        type: 'success'
+      })
+    },
+    claear() {
+      this.form = {}
+    },
+    open() {
+      this.form = {}
+    },
+    handleSizeChange(val) {
+      // 每页多少条
+      const page = this.currentPage
+      const limit = val
+      indexGetList1(page, limit).then(res => {
+        console.log(res)
+        this.count = res.count
+        this.tableData = res.table
+      })
+    },
+    handleCurrentChange(val) {
+      // 当前多少页
+      const page = val
+      const limit = this.pagesize
+      indexGetList1(page, limit).then(res => {
+        this.count = res.count
+        this.tableData = res.table
+      })
     }
   }
 }
@@ -85,5 +181,10 @@ export default {
 .tablema {
   margin: 1em
 }
+.top-button {
+  margin-bottom: 1em;
+}
+.block {
+  margin-top: 1em;
+}
 </style>
-

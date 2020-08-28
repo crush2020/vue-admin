@@ -34,7 +34,7 @@ export const constantRouterMap = [
     children: [{
       path: 'dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'table' }
+      meta: { title: '系统首页', icon: 'table' }
     }]
   },
 
@@ -60,6 +60,12 @@ export const constantRouterMap = [
         name: 'install',
         component: () => import('@/views/system/install'),
         meta: { title: '安装位置', icon: 'form' }
+      },
+      {
+        path: 'workface',
+        name: 'workface',
+        component: () => import('@/views/system/workface'),
+        meta: { title: '工作面', icon: 'form' }
       },
       {
         path: 'manage',
