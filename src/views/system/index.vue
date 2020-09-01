@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { indexGetList, indexGetList1 } from '@/utils/network/index'
+import { indexGetList, indexGetList1, indexPostList, indexPutList, indexDeleteList } from '@/utils/network/index'
 
 export default {
   data() {
@@ -110,14 +110,23 @@ export default {
       this.dialogFormVisible1 = true
     },
     handleDelete(index, row) {
+      const id = row.id
+      const tableData = this.tableData
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
+        indexDeleteList(id).then(res => {
+          if (res.id) {
+            tableData.splice(index, 1)
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+          } else {
+            this.$message.error('删除失败')
+          }
         })
       }).catch(() => {
         this.$message({
@@ -131,10 +140,19 @@ export default {
       this.$message('已取消新增')
     },
     definite() {
+      const from = this.form
+      const tableData = this.tableData
       this.dialogFormVisible = !this.dialogFormVisible
-      this.$message({
-        message: '新增成功',
-        type: 'success'
+      indexPostList(from).then(res => {
+        if (res.id) {
+          tableData.push(res)
+          this.$message({
+            message: '新增成功',
+            type: 'success'
+          })
+        } else {
+          this.$message.error('删除失败')
+        }
       })
     },
     cancel1() {
@@ -142,10 +160,18 @@ export default {
       this.$message('已取消编辑')
     },
     definite1() {
+      const id = this.form1.id
+      const data = this.form1
       this.dialogFormVisible1 = !this.dialogFormVisible1
-      this.$message({
-        message: '编辑成功',
-        type: 'success'
+      indexPutList(id, data).then(res => {
+        if (res) {
+          this.$message.error('编辑失败')
+        } else {
+          this.$message({
+            message: '编辑成功',
+            type: 'success'
+          })
+        }
       })
     },
     claear() {

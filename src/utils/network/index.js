@@ -14,3 +14,25 @@ export function indexGetList1(page, limit) {
   })
 }
 
+export function indexPostList(data) {
+  return request({
+    url: '/DeviceTypes',
+    method: 'post',
+    data
+  })
+}
+
+export function indexPutList(id, data) {
+  return request({
+    url: `/DeviceTypes/${id}`,
+    method: 'put',
+    data
+  })
+}
+
+export function indexDeleteList(id) {
+  return request({
+    url: `/DeviceTypes/${id}`,
+    method: 'delete'
+  })
+}
