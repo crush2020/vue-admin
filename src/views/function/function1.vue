@@ -25,26 +25,23 @@
     <el-dialog :visible.sync="dialogFormVisible" :close-on-click-modal="false" title="新增报警级别" @open="open">
       <el-form :model="form">
         <el-form-item :label-width="formLabelWidth" label="设备类型">
-          <el-select v-model="form.deviceName" placeholder="请选择">
+          <el-select v-model="form.deviceTypeId" placeholder="请选择">
             <el-option
               v-for="item in indexoption"
               :key="item.value"
               :label="item.deviceName"
-              :value="item.deviceName"/>
+              :value="item.id"/>
           </el-select>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="等级">
-          <el-select v-model="form.level" placeholder="请选择">
-            <el-option
-              v-for="item in positionoption"
-              :key="item.value"
-              :label="item.level"
-              :value="item.level"/>
-          </el-select>
+          <el-input v-model="form.level" auto-complete="off"/>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="意见">
           <el-input v-model="form.opinion" auto-complete="off"/>
         </el-form-item>
+        <!-- <el-form-item :label-width="formLabelWidth" label="备注">
+          <el-input v-model="form.remark" auto-complete="off"/>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="cancel">取 消</el-button>
@@ -55,26 +52,23 @@
     <el-dialog :visible.sync="dialogFormVisible1" :close-on-click-modal="false" title="编辑报警级别">
       <el-form :model="form1">
         <el-form-item :label-width="formLabelWidth" label="设备类型">
-          <el-select v-model="form1.deviceName" placeholder="请选择">
+          <el-select v-model="form1.deviceTypeId" placeholder="请选择">
             <el-option
               v-for="item in indexoption"
               :key="item.value"
               :label="item.deviceName"
-              :value="item.deviceName"/>
+              :value="item.id"/>
           </el-select>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="等级">
-          <el-select v-model="form1.positionName" placeholder="请选择">
-            <el-option
-              v-for="item in positionoption"
-              :key="item.value"
-              :label="item.level"
-              :value="item.level"/>
-          </el-select>
+          <el-input v-model="form1.level" auto-complete="off"/>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="意见">
           <el-input v-model="form1.opinion" auto-complete="off"/>
         </el-form-item>
+        <!-- <el-form-item :label-width="formLabelWidth" label="备注">
+          <el-input v-model="form1.remark" auto-complete="off"/>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="cancel1">取 消</el-button>
@@ -86,7 +80,7 @@
 </template>
 
 <script>
-import { function1GetList, function1GetList1 } from '@/utils/network/function1'
+import { function1GetList, function1GetList1, function1PostList, function1PutList, function1DeleteList } from '@/utils/network/function1'
 import { indexGetList } from '@/utils/network/index'
 
 export default {
@@ -108,7 +102,6 @@ export default {
       form: {},
       form1: {},
       indexoption: {},
-      positionoption: {},
       count: 400,
       currentPage: 1,
       pagesize: 20
@@ -116,7 +109,6 @@ export default {
   },
   created() {
     function1GetList().then(res => {
-      console.log(res)
       this.tableData = res
       this.count = res.length
     })
@@ -128,14 +120,14 @@ export default {
   methods: {
     resetDateFilter() {
       this.dialogFormVisible = !this.dialogFormVisible
-      function1GetList1().then(res => {
-        this.indexoption = res
-      })
       indexGetList().then(res => {
         this.indexoption = res
       })
     },
     handleEdit(index, row) {
+      indexGetList().then(res => {
+        this.indexoption = res
+      })
       this.form1 = row
       this.dialogFormVisible1 = true
     },
@@ -145,9 +137,18 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
+        const id = row.id
+        const tableData = this.tableData
+        function1DeleteList(id).then(res => {
+          if (res.id) {
+            tableData.splice(index, 1)
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+          } else {
+            this.$message.error('删除失败')
+          }
         })
       }).catch(() => {
         this.$message({
@@ -161,10 +162,22 @@ export default {
       this.$message('已取消新增')
     },
     definite() {
+      const from = this.form
+      const tableData = this.tableData
+      from.level = parseInt(from.level)
       this.dialogFormVisible = !this.dialogFormVisible
-      this.$message({
-        message: '新增成功',
-        type: 'success'
+      function1PostList(from).then(res => {
+        if (res.id) {
+          function1GetList().then(res => {
+            tableData.push(res[res.length - 1])
+            this.$message({
+              message: '新增成功',
+              type: 'success'
+            })
+          })
+        } else {
+          this.$message.error('新增失败')
+        }
       })
     },
     cancel1() {
@@ -172,10 +185,19 @@ export default {
       this.$message('已取消编辑')
     },
     definite1() {
+      const id = this.form1.id
+      const form1 = this.form1
+      form1.level = parseInt(form1.level)
       this.dialogFormVisible1 = !this.dialogFormVisible1
-      this.$message({
-        message: '编辑成功',
-        type: 'success'
+      function1PutList(id, form1).then(res => {
+        if (res) {
+          this.$message.error('编辑失败')
+        } else {
+          this.$message({
+            message: '编辑成功',
+            type: 'success'
+          })
+        }
       })
     },
     claear() {

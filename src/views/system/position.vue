@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { positionGetList, positionGetList1 } from '@/utils/network/position'
+import { positionGetList, positionGetList1, positionPostList, positionPutList, positionDeleteList } from '@/utils/network/position'
 
 export default {
   data() {
@@ -114,9 +114,18 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
+        const id = row.id
+        const tableData = this.tableData
+        positionDeleteList(id).then(res => {
+          if (res.id) {
+            tableData.splice(index, 1)
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+          } else {
+            this.$message.error('删除失败')
+          }
         })
       }).catch(() => {
         this.$message({
@@ -130,10 +139,19 @@ export default {
       this.$message('已取消新增')
     },
     definite() {
+      const from = this.form
+      const tableData = this.tableData
       this.dialogFormVisible = !this.dialogFormVisible
-      this.$message({
-        message: '新增成功',
-        type: 'success'
+      positionPostList(from).then(res => {
+        if (res.id) {
+          tableData.push(res)
+          this.$message({
+            message: '新增成功',
+            type: 'success'
+          })
+        } else {
+          this.$message.error('新增失败')
+        }
       })
     },
     cancel1() {
@@ -141,10 +159,18 @@ export default {
       this.$message('已取消编辑')
     },
     definite1() {
+      const id = this.form1.id
+      const data = this.form1
       this.dialogFormVisible1 = !this.dialogFormVisible1
-      this.$message({
-        message: '编辑成功',
-        type: 'success'
+      positionPutList(id, data).then(res => {
+        if (res) {
+          this.$message.error('编辑失败')
+        } else {
+          this.$message({
+            message: '编辑成功',
+            type: 'success'
+          })
+        }
       })
     },
     claear() {

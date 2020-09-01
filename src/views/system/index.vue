@@ -110,13 +110,13 @@ export default {
       this.dialogFormVisible1 = true
     },
     handleDelete(index, row) {
-      const id = row.id
-      const tableData = this.tableData
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+        const id = row.id
+        const tableData = this.tableData
         indexDeleteList(id).then(res => {
           if (res.id) {
             tableData.splice(index, 1)
@@ -151,7 +151,7 @@ export default {
             type: 'success'
           })
         } else {
-          this.$message.error('删除失败')
+          this.$message.error('新增失败')
         }
       })
     },

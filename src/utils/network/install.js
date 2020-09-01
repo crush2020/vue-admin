@@ -14,3 +14,25 @@ export function installGetList1(page, limit) {
   })
 }
 
+export function installPostList(data) {
+  return request({
+    url: '/InstallationSites',
+    method: 'post',
+    data
+  })
+}
+
+export function installPutList(id, data) {
+  return request({
+    url: `/InstallationSites/${id}`,
+    method: 'put',
+    data
+  })
+}
+
+export function installDeleteList(id) {
+  return request({
+    url: `/InstallationSites/${id}`,
+    method: 'delete'
+  })
+}

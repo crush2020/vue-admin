@@ -31,12 +31,12 @@
           <el-input v-model="form.remark" auto-complete="off"/>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="设备类型">
-          <el-select v-model="form.deviceName" placeholder="请选择">
+          <el-select v-model="form.deviceTypeId" placeholder="请选择">
             <el-option
               v-for="item in indexoption"
               :key="item.value"
               :label="item.deviceName"
-              :value="item.deviceName"/>
+              :value="item.id"/>
           </el-select>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="级别">
@@ -44,15 +44,17 @@
             <el-option
               v-for="item in positionoption"
               :key="item.value"
-              :label="item.level"
+              :label="item.id"
               :value="item.id"/>
           </el-select>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="多点位置">
           <el-select v-model="form.mplocation" placeholder="请选择多点位置">
-            <el-option label="深基点" value="0"/>
-            <el-option label="中基点" value="1"/>
-            <el-option label="浅基点" value="2"/>
+            <el-option
+              v-for="item in jidian"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"/>
           </el-select>
         </el-form-item>
       </el-form>
@@ -62,11 +64,11 @@
         </el-form-item>
         <el-form-item>
           <el-select v-model="form.condition1" placeholder="判断设置">
-            <el-option label="大于" value="0"/>
-            <el-option label="小于" value="1"/>
-            <el-option label="等于" value="2"/>
-            <el-option label="大于等于" value="3"/>
-            <el-option label="小于等于" value="4"/>
+            <el-option
+              v-for="item in panduan"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"/>
           </el-select>
         </el-form-item>
       </el-form>
@@ -76,11 +78,11 @@
         </el-form-item>
         <el-form-item>
           <el-select v-model="form.condition2" :disabled="!form.isscope" placeholder="判断设置">
-            <el-option label="大于" value="0"/>
-            <el-option label="小于" value="1"/>
-            <el-option label="等于" value="2"/>
-            <el-option label="大于等于" value="3"/>
-            <el-option label="小于等于" value="4"/>
+            <el-option
+              v-for="item in panduan"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"/>
           </el-select>
           <el-switch
             v-model="form.isscope"
@@ -94,7 +96,7 @@
         <el-button type="success" @click="claear">重置</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="dialogFormVisible1" :close-on-click-modal="false" title="新增设备类型" @open="open">
+    <el-dialog :visible.sync="dialogFormVisible1" :close-on-click-modal="false" title="编辑设备类型">
       <el-form :model="form1">
         <el-form-item :label-width="formLabelWidth" label="阈值系数参数">
           <el-input v-model="form1.thresholdParameter" auto-complete="off"/>
@@ -103,12 +105,12 @@
           <el-input v-model="form1.remark" auto-complete="off"/>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="设备类型">
-          <el-select v-model="form1.deviceName" placeholder="请选择">
+          <el-select v-model="form1.deviceTypeId" placeholder="请选择">
             <el-option
               v-for="item in indexoption"
               :key="item.value"
               :label="item.deviceName"
-              :value="item.deviceName"/>
+              :value="item.id"/>
           </el-select>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="级别">
@@ -116,15 +118,17 @@
             <el-option
               v-for="item in positionoption"
               :key="item.value"
-              :label="item.level"
+              :label="item.id"
               :value="item.id"/>
           </el-select>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="多点位置">
           <el-select v-model="form1.mplocation" placeholder="请选择多点位置">
-            <el-option label="深基点" value="0"/>
-            <el-option label="中基点" value="1"/>
-            <el-option label="浅基点" value="2"/>
+            <el-option
+              v-for="item in jidian"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"/>
           </el-select>
         </el-form-item>
       </el-form>
@@ -134,25 +138,25 @@
         </el-form-item>
         <el-form-item>
           <el-select v-model="form1.condition1" placeholder="判断设置">
-            <el-option label="大于" value="0"/>
-            <el-option label="小于" value="1"/>
-            <el-option label="等于" value="2"/>
-            <el-option label="大于等于" value="3"/>
-            <el-option label="小于等于" value="4"/>
+            <el-option
+              v-for="item in panduan"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"/>
           </el-select>
         </el-form-item>
       </el-form>
-      <el-form :inline="true" :model="form">
+      <el-form :inline="true" :model="form1">
         <el-form-item :label-width="formLabelWidth" label="阈值基数参数">
           <el-input v-model="form1.thresholdValue2" :disabled="!form1.isscope" placeholder="输入阈值基数参数，值为小数"/>
         </el-form-item>
         <el-form-item>
           <el-select v-model="form1.condition2" :disabled="!form1.isscope" placeholder="判断设置">
-            <el-option label="大于" value="0"/>
-            <el-option label="小于" value="1"/>
-            <el-option label="等于" value="2"/>
-            <el-option label="大于等于" value="3"/>
-            <el-option label="小于等于" value="4"/>
+            <el-option
+              v-for="item in panduan"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"/>
           </el-select>
           <el-switch
             v-model="form1.isscope"
@@ -161,8 +165,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="cancel">取 消</el-button>
-        <el-button type="primary" @click="definite">确 定</el-button>
+        <el-button @click="cancel1">取 消</el-button>
+        <el-button type="primary" @click="definite1">确 定</el-button>
         <el-button type="success" @click="claear">重置</el-button>
       </div>
     </el-dialog>
@@ -170,7 +174,7 @@
 </template>
 
 <script>
-import { function3GetList, function3GetList1 } from '@/utils/network/function3'
+import { function3GetList, function3GetList1, function3PostList, function3PostList1, function3PutList, function3PutList1, function3DeleteList1 } from '@/utils/network/function3'
 import { indexGetList } from '@/utils/network/index'
 import { function1GetList } from '@/utils/network/function1'
 
@@ -199,11 +203,13 @@ export default {
           thresholdValue2: 1
         }
       ],
-      form: {},
-      form1: {},
+      form: { isscope: false },
+      form1: { isscope: false },
       indexoption: {},
       positionoption: {},
       formInline: {},
+      jidian: [{ label: '深基点', value: 1 }, { label: '中基点', value: 2 }, { label: '浅基点', value: 3 }],
+      panduan: [{ label: '大于', value: 1 }, { label: '小于', value: 2 }, { label: '等于', value: 3 }, { label: '大于等于', value: 4 }, { label: '小于等于', value: 5 }],
       count: 400,
       currentPage: 1,
       pagesize: 20
@@ -230,6 +236,13 @@ export default {
       })
     },
     handleEdit(index, row) {
+      indexGetList().then(res => {
+        this.indexoption = res
+      })
+      function1GetList().then(res => {
+        this.positionoption = res
+      })
+      console.log(row)
       this.form1 = row
       this.dialogFormVisible1 = true
     },
@@ -239,9 +252,18 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
+        const id = row.analysisConditionsID
+        const tableData = this.tableData
+        function3DeleteList1(id).then(res => {
+          if (res.id) {
+            tableData.splice(index, 1)
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+          } else {
+            this.$message.error('删除失败')
+          }
         })
       }).catch(() => {
         this.$message({
@@ -255,10 +277,45 @@ export default {
       this.$message('已取消新增')
     },
     definite() {
+      const form = this.form
+      const afrom = {}
+      const bfrom = {}
+      const tableData = this.tableData
+      afrom.levelId = parseInt(form.levelId)
+      afrom.deviceTypeId = form.deviceTypeId
+      afrom.thresholdParameter = parseInt(form.thresholdParameter)
+      afrom.remark = form.remark
       this.dialogFormVisible = !this.dialogFormVisible
-      this.$message({
-        message: '新增成功',
-        type: 'success'
+      function3PostList(afrom).then(res => {
+        if (res.id) {
+          bfrom.analysisSettingId = parseInt(res.id)
+          bfrom.mplocation = parseInt(form.mplocation)
+          bfrom.thresholdValue1 = parseInt(form.thresholdValue1)
+          bfrom.condition1 = parseInt(form.condition1)
+          bfrom.isscope = form.isscope
+          if (form.isscope) {
+            bfrom.thresholdValue2 = parseInt(form.thresholdValue2)
+            bfrom.condition2 = parseInt(form.condition2)
+          } else {
+            bfrom.thresholdValue2 = 2
+            bfrom.condition2 = 2
+          }
+          function3PostList1(bfrom).then(res => {
+            if (res.id) {
+              function3GetList().then(res => {
+                tableData.push(res[res.length - 1])
+                this.$message({
+                  message: '新增成功',
+                  type: 'success'
+                })
+              })
+            } else {
+              this.$message.error('新增失败')
+            }
+          })
+        } else {
+          this.$message.error('新增失败')
+        }
       })
     },
     cancel1() {
@@ -266,10 +323,51 @@ export default {
       this.$message('已取消编辑')
     },
     definite1() {
+      const form = this.form1
+      const afrom = {}
+      const aid = parseInt(form.id)
+      const bfrom = {}
+      const bid = parseInt(form.analysisConditionsID)
+      afrom.levelId = parseInt(form.levelId)
+      afrom.id = aid
+      afrom.deviceTypeId = form.deviceTypeId
+      afrom.thresholdParameter = parseInt(form.thresholdParameter)
+      afrom.remark = form.remark
+      bfrom.analysisSettingId = aid
+      bfrom.id = bid
+      bfrom.mplocation = parseInt(form.mplocation)
+      bfrom.thresholdValue1 = parseInt(form.thresholdValue1)
+      bfrom.condition1 = parseInt(form.condition1)
+      bfrom.isscope = form.isscope
+      if (form.isscope) {
+        bfrom.thresholdValue2 = parseInt(form.thresholdValue2)
+        bfrom.condition2 = parseInt(form.condition2)
+      } else {
+        bfrom.thresholdValue2 = 2
+        bfrom.condition2 = 2
+      }
       this.dialogFormVisible1 = !this.dialogFormVisible1
-      this.$message({
-        message: '编辑成功',
-        type: 'success'
+      function3PutList(aid, afrom).then(res => {
+        console.log(res)
+        if (!res) {
+          this.$message({
+            message: '编辑成功',
+            type: 'success'
+          })
+        } else {
+          this.$message.error('编辑失败')
+        }
+      })
+      function3PutList1(bid, bfrom).then(res => {
+        console.log(res)
+        if (!res) {
+          this.$message({
+            message: '编辑成功',
+            type: 'success'
+          })
+        } else {
+          this.$message.error('编辑失败')
+        }
       })
     },
     claear() {

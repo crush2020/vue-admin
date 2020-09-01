@@ -14,3 +14,26 @@ export function positionGetList1(page, limit) {
   })
 }
 
+export function positionPostList(data) {
+  return request({
+    url: '/PositionTypes',
+    method: 'post',
+    data
+  })
+}
+
+export function positionPutList(id, data) {
+  return request({
+    url: `/PositionTypes/${id}`,
+    method: 'put',
+    data
+  })
+}
+
+export function positionDeleteList(id) {
+  return request({
+    url: `/PositionTypes/${id}`,
+    method: 'delete'
+  })
+}
+

@@ -26,39 +26,39 @@
     <el-dialog :visible.sync="dialogFormVisible" :close-on-click-modal="false" title="新增设备设备管理" @open="open">
       <el-form :model="form">
         <el-form-item :label-width="formLabelWidth" label="设备类型">
-          <el-select v-model="form.deviceName" placeholder="请选择">
+          <el-select v-model="form.deviceTypeId" placeholder="请选择">
             <el-option
               v-for="item in indexoption"
               :key="item.value"
               :label="item.deviceName"
-              :value="item.deviceName"/>
+              :value="item.id"/>
           </el-select>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="位置类型">
-          <el-select v-model="form.positionName" placeholder="请选择">
+          <el-select v-model="form.positionTypeId" placeholder="请选择">
             <el-option
               v-for="item in positionoption"
               :key="item.value"
               :label="item.positionName"
-              :value="item.positionName"/>
+              :value="item.id"/>
           </el-select>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="安装位置">
-          <el-select v-model="form.name" placeholder="请选择">
+          <el-select v-model="form.installationSite" placeholder="请选择">
             <el-option
               v-for="item in installoption"
               :key="item.value"
               :label="item.name"
-              :value="item.name"/>
+              :value="item.id"/>
           </el-select>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="工作面">
-          <el-select v-model="form.workingFaceName" placeholder="请选择">
+          <el-select v-model="form.workingFaceID" placeholder="请选择">
             <el-option
               v-for="item in workoption"
               :key="item.value"
               :label="item.name"
-              :value="item.name"/>
+              :value="item.id"/>
           </el-select>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="设备编号">
@@ -83,39 +83,39 @@
     <el-dialog :visible.sync="dialogFormVisible1" :close-on-click-modal="false" title="编辑设备设备管理">
       <el-form :model="form1">
         <el-form-item :label-width="formLabelWidth" label="设备类型">
-          <el-select v-model="form1.deviceName" placeholder="请选择">
+          <el-select v-model="form1.deviceTypeId" placeholder="请选择">
             <el-option
-              v-for="item in indexoption"
+              v-for="item in indexoption1"
               :key="item.value"
               :label="item.deviceName"
-              :value="item.deviceName"/>
+              :value="item.id"/>
           </el-select>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="位置类型">
-          <el-select v-model="form1.positionName" placeholder="请选择">
+          <el-select v-model="form1.positionTypeId" placeholder="请选择">
             <el-option
-              v-for="item in positionoption"
+              v-for="item in positionoption1"
               :key="item.value"
               :label="item.positionName"
-              :value="item.positionName"/>
+              :value="item.id"/>
           </el-select>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="安装位置">
-          <el-select v-model="form1.name" placeholder="请选择">
+          <el-select v-model="form1.installationSite" placeholder="请选择">
             <el-option
-              v-for="item in installoption"
+              v-for="item in installoption1"
               :key="item.value"
               :label="item.name"
-              :value="item.name"/>
+              :value="item.id"/>
           </el-select>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="工作面">
-          <el-select v-model="form1.workingFaceName" placeholder="请选择">
+          <el-select v-model="form1.workingFaceID" placeholder="请选择">
             <el-option
-              v-for="item in workoption"
+              v-for="item in workoption1"
               :key="item.value"
               :label="item.name"
-              :value="item.name"/>
+              :value="item.id"/>
           </el-select>
         </el-form-item>
         <el-form-item :label-width="formLabelWidth" label="设备编号">
@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import { manageGetList, manageGetList1 } from '@/utils/network/manage'
+import { manageGetList, manageGetList1, managePostList, managePutList, manageDeleteList } from '@/utils/network/manage'
 import { indexGetList } from '@/utils/network/index'
 import { installGetList } from '@/utils/network/install'
 import { positionGetList } from '@/utils/network/position'
@@ -184,6 +184,10 @@ export default {
       installoption: {},
       positionoption: {},
       workoption: {},
+      indexoption1: {},
+      installoption1: {},
+      positionoption1: {},
+      workoption1: {},
       count: 400,
       currentPage: 1,
       pagesize: 20
@@ -217,6 +221,18 @@ export default {
     },
     handleEdit(index, row) {
       this.form1 = row
+      indexGetList().then(res => {
+        this.indexoption1 = res
+      })
+      installGetList().then(res => {
+        this.installoption1 = res
+      })
+      positionGetList().then(res => {
+        this.positionoption1 = res
+      })
+      workGetList().then(res => {
+        this.workoption1 = res
+      })
       this.dialogFormVisible1 = true
     },
     handleDelete(index, row) {
@@ -225,9 +241,18 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
+        const id = row.id
+        const tableData = this.tableData
+        manageDeleteList(id).then(res => {
+          if (res.id) {
+            tableData.splice(index, 1)
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+          } else {
+            this.$message.error('删除失败')
+          }
         })
       }).catch(() => {
         this.$message({
@@ -241,10 +266,22 @@ export default {
       this.$message('已取消新增')
     },
     definite() {
+      const from = this.form
+      const tableData = this.tableData
+      from.initialValue = parseInt(from.initialValue)
       this.dialogFormVisible = !this.dialogFormVisible
-      this.$message({
-        message: '新增成功',
-        type: 'success'
+      managePostList(from).then(res => {
+        if (res.id) {
+          manageGetList().then(res => {
+            tableData.push(res[res.length - 1])
+            this.$message({
+              message: '新增成功',
+              type: 'success'
+            })
+          })
+        } else {
+          this.$message.error('新增失败')
+        }
       })
     },
     cancel1() {
@@ -252,10 +289,19 @@ export default {
       this.$message('已取消编辑')
     },
     definite1() {
+      const id = this.form1.id
+      const form1 = this.form1
+      form1.initialValue = parseInt(form1.initialValue)
       this.dialogFormVisible1 = !this.dialogFormVisible1
-      this.$message({
-        message: '编辑成功',
-        type: 'success'
+      managePutList(id, form1).then(res => {
+        if (res) {
+          this.$message.error('编辑失败')
+        } else {
+          this.$message({
+            message: '编辑成功',
+            type: 'success'
+          })
+        }
       })
     },
     claear() {
