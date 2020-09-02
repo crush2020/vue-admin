@@ -24,6 +24,9 @@ import '@/permission' // permission control
  * If you remove `../mock` it will automatically request easy-mock data.
  */
 import '../mock' // simulation data
+import echarts from 'echarts'
+import 'echarts-liquidfill'
+Vue.prototype.$echarts = echarts
 
 Vue.use(ElementUI)
 
