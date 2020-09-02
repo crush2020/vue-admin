@@ -18,7 +18,12 @@
       <el-col :span="20"><div class="grid-content bg-purple el-center-div">1</div></el-col>
     </el-row>
     <el-row :gutter="20" type="flex" justify="center" class="el-buttom">
-      <el-col :span="20">
+      <el-col :span="8">
+        <div class="grid-content bg-purple el-buttom-div">
+          <waterpolo/>
+        </div>
+      </el-col>
+      <el-col :span="8">
         <div class="grid-content bg-purple el-buttom-div">
           <waterpolo/>
         </div>
@@ -81,6 +86,5 @@ a:hover {color: #f9fafc;}
 }
 .el-buttom-div {
   color: #f9fafc;
-  background-color: coral;
 }
 </style>
