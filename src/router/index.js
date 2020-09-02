@@ -36,7 +36,6 @@ export const constantRouterMap = [
   {
     path: '',
     redirect: '/home',
-    name: 'home',
     hidden: true
   },
 
