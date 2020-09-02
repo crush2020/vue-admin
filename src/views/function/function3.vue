@@ -347,6 +347,7 @@ export default {
         bfrom.condition2 = 2
       }
       this.dialogFormVisible1 = !this.dialogFormVisible1
+
       function3PutList(aid, afrom).then(res => {
         console.log(res)
         if (!res) {

@@ -26,10 +26,35 @@ export const constantRouterMap = [
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
   { path: '/404', component: () => import('@/views/404'), hidden: true },
 
+  // {
+  //   path: '/home',
+  //   name: 'home',
+  //   component: () => import('@/views/homepage/home'),
+  //   hidden: true
+  // },
+
   {
-    path: '/',
+    path: '',
+    redirect: '/home',
+    name: 'home',
+    hidden: true
+  },
+
+  {
+    path: '/home',
+    name: 'home',
+    component: () => import('@/views/homepage/home'),
+    hidden: true
+    // children: [{
+    //   path: 'home',
+    //   component: () => import('@/views/homepage/home'),
+    //   hidden: true
+    // }]
+  },
+
+  {
+    path: '/dashboard',
     component: Layout,
-    redirect: '/dashboard',
     name: 'Dashboard',
     children: [{
       path: 'dashboard',
@@ -37,6 +62,18 @@ export const constantRouterMap = [
       meta: { title: '系统首页', icon: 'table' }
     }]
   },
+
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   name: 'Dashboard',
+  //   children: [{
+  //     path: 'dashboard',
+  //     component: () => import('@/views/dashboard/index'),
+  //     meta: { title: '系统首页', icon: 'table' }
+  //   }]
+  // },
 
   {
     path: '/system',
