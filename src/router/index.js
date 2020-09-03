@@ -45,10 +45,17 @@ export const constantRouterMap = [
     component: () => import('@/views/homepage/home'),
     hidden: true
     // children: [{
-    //   path: 'home',
-    //   component: () => import('@/views/homepage/home'),
+    //   path: 'Detailed',
+    //   component: () => import('@/views/homepage/Detailed'),
     //   hidden: true
     // }]
+  },
+
+  {
+    path: '/Detailed',
+    name: 'Detailed',
+    component: () => import('@/views/homepage/Detailed'),
+    hidden: true
   },
 
   {

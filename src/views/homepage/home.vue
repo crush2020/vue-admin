@@ -6,7 +6,7 @@
           <span class="el-top-sapan">智慧支护分析系统</span>
         </div>
       </el-col>
-      <el-col :span="7">
+      <el-col :span="5" :offset="1">
         <div class="grid-content bg-purple">
           <router-link class="el-top-i" to="/dashboard/dashboard">
             <span class="el-icon-s-platform"/>智慧管理系统后台
@@ -15,7 +15,13 @@
       </el-col>
     </el-row>
     <el-row :gutter="20" type="flex" justify="center" class="el-center">
-      <el-col :span="20"><div class="grid-content bg-purple el-center-div">1</div></el-col>
+      <el-col :span="20">
+        <div class="grid-content bg-purple el-center-div">
+          <router-link class="el-top-i" to="/Detailed">
+            <span class="el-icon-s-grid"/>点击查看详细内容
+          </router-link>
+        </div>
+      </el-col>
     </el-row>
     <el-row :gutter="20" type="flex" justify="center" class="el-buttom">
       <el-col :span="4">
@@ -84,14 +90,14 @@ a:hover {color: #f9fafc;}
 .el-top-i {
   color: #409eff;
   height: 15%;
-  font-size: 25px;
+  font-size: 20px;
   margin-bottom: 10px;
 }
 .el-center {
   color: white;
 }
 .el-center-div {
-  background-color: tomato;
+  color: azure;
 }
 .el-buttom-div {
   color: #f9fafc;

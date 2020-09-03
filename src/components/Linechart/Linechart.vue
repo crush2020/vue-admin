@@ -12,7 +12,7 @@ export default {
       type: Object,
       default: () => {
         return {
-          text: '坐席电话统计',
+          text: '设备使用数量统计',
           xData: ['2019-03-01', '2019-03-02', '2019-03-03', '2019-03-04', '2019-03-05', '2019-03-06', '2019-03-07', '2019-03-08', '2019-03-09', '2019-03-10', '2019-03-11', '2019-03-12', '2019-03-13', '2019-03-14', '2019-03-15', '2019-03-16', '2019-03-17', '2019-03-18', '2019-03-19', '2019-03-20'],
           yData1: [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17],
           yData2: [13, 7, 10, 38, 17, 28, 22, 12, 28, 19, 14, 19, 19, 31, 22, 11, 14, 19, 22, 16]
@@ -44,10 +44,10 @@ export default {
   },
   methods: {
     drawLine() {
-      const xData = ['2019-03-01', '2019-03-02', '2019-03-03', '2019-03-04', '2019-03-05', '2019-03-06', '2019-03-07', '2019-03-08', '2019-03-09', '2019-03-10', '2019-03-11', '2019-03-12', '2019-03-13', '2019-03-14', '2019-03-15', '2019-03-16', '2019-03-17', '2019-03-18', '2019-03-19', '2019-03-20']
-      const yData1 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17]
-      const yData2 = [13, 7, 10, 38, 17, 28, 22, 12, 28, 19, 14, 19, 19, 31, 22, 11, 14, 19, 22, 16]
-      const text = '坐席电话统计'
+      const xData = this.content.xData
+      const yData1 = this.content.yData1
+      const yData2 = this.content.yData2
+      const text = this.content.text
       const myChart = this.$echarts.init(this.$refs.myline)
       const options = {
         title: {
@@ -75,7 +75,7 @@ export default {
             fontSize: 13
           },
           icon: 'circle',
-          data: ['呼入量', '呼出量']
+          data: ['a设备', 'b设备']
         },
         dataZoom: [
           {
@@ -156,7 +156,7 @@ export default {
         ],
         series: [
           {
-            name: '呼入量',
+            name: 'a设备',
             type: 'line',
             yAxisIndex: 0,
             symbolSize: 12,
@@ -168,7 +168,7 @@ export default {
             data: yData1
           },
           {
-            name: '呼出量',
+            name: 'b设备',
             type: 'line',
             yAxisIndex: 0,
             symbolSize: 12,
