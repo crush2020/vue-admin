@@ -1,6 +1,6 @@
 <template>
   <div class="WaterPolo">
-    <div ref="mypolo" :style="{height: '100px', width: '100px'}" />
+    <div ref="mypolo" :style="{height: '100px', width: '100px'}"/>
   </div>
 </template>
 

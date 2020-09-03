@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <el-row :gutter="20" type="flex" align="middle" class="el-top">
-      <el-col :span="8" :offset="10">
+      <el-col :span="8" :offset="9">
         <div class="grid-content bg-purple">
           <span class="el-top-sapan">智慧支护分析系统</span>
         </div>
       </el-col>
-      <el-col :span="6">
+      <el-col :span="7">
         <div class="grid-content bg-purple">
           <router-link class="el-top-i" to="/dashboard/dashboard">
             <span class="el-icon-s-platform"/>智慧管理系统后台
@@ -18,14 +18,19 @@
       <el-col :span="20"><div class="grid-content bg-purple el-center-div">1</div></el-col>
     </el-row>
     <el-row :gutter="20" type="flex" justify="center" class="el-buttom">
-      <el-col :span="8">
+      <el-col :span="4">
         <div class="grid-content bg-purple el-buttom-div">
           <waterpolo/>
         </div>
       </el-col>
+      <el-col :span="12">
+        <div class="grid-content bg-purple el-buttom-div">
+          <linechart/>
+        </div>
+      </el-col>
       <el-col :span="8">
         <div class="grid-content bg-purple el-buttom-div">
-          <waterpolo/>
+          <piechart/>
         </div>
       </el-col>
     </el-row>
@@ -34,10 +39,14 @@
 
 <script>
 import Waterpolo from '@/components/Waterpolo/Waterpolo'
+import Piechart from '@/components/Piechart/Piechart'
+import Linechart from '@/components/Linechart/Linechart'
 
 export default {
   components: {
-    Waterpolo
+    Waterpolo,
+    Piechart,
+    Linechart
   },
   data() {
     return {}
