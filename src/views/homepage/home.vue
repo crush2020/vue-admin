@@ -16,9 +16,10 @@
     </el-row>
     <el-row :gutter="20" type="flex" justify="center" class="el-center">
       <el-col :span="20">
-        <div class="grid-content bg-purple el-center-div">
+        <div class="grid-top-content bg-purple el-center-div">
+          <rotation/>
           <router-link class="el-top-i" to="/Detailed">
-            <span class="el-icon-s-grid"/>点击查看详细内容
+            <span class="el-icon-s-grid"/>点击查看单个设备详细内容
           </router-link>
         </div>
       </el-col>
@@ -40,6 +41,23 @@
         </div>
       </el-col>
     </el-row>
+    <!-- <el-row :gutter="20" type="flex" justify="center" class="el-buttom1">
+      <el-col :span="4">
+        <div class="grid-content bg-purple el-buttom-div">
+          <waterpolo/>
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div class="grid-content bg-purple el-buttom-div">
+          <linechart/>
+        </div>
+      </el-col>
+      <el-col :span="8">
+        <div class="grid-content bg-purple el-buttom-div">
+          <piechart/>
+        </div>
+      </el-col>
+    </el-row> -->
   </div>
 </template>
 
@@ -47,12 +65,14 @@
 import Waterpolo from '@/components/Waterpolo/Waterpolo'
 import Piechart from '@/components/Piechart/Piechart'
 import Linechart from '@/components/Linechart/Linechart'
+import Rotation from '@/components/Rotation/Rotation'
 
 export default {
   components: {
     Waterpolo,
     Piechart,
-    Linechart
+    Linechart,
+    Rotation
   },
   data() {
     return {}
@@ -64,7 +84,6 @@ export default {
 a:hover {color: #f9fafc;}
 .home {
   width: 100%;
-  height: 100%;
   margin: 0;
   padding: 10px;
   background-image: url(../../assets/image/bj.jpg);
@@ -78,6 +97,11 @@ a:hover {color: #f9fafc;}
 .grid-content {
   border-radius: 4px;
   min-height: 36px;
+}
+.grid-top-content {
+  border-radius: 4px;
+  min-height: 36px;
+  text-align: center;
 }
 .row-bg {
   padding: 10px 0;

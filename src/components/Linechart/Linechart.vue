@@ -60,7 +60,7 @@ export default {
             fontSize: 22
           }
         },
-        backgroundColor: '#043491',
+        // backgroundColor: 'rgba(13,5,30,.6)',
         tooltip: {
           trigger: 'axis',
           axisPointer: {

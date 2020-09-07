@@ -52,21 +52,21 @@ export default {
       }
       const myChart = this.$echarts.init(this.$refs.mypie)
       const options = {
-        backgroundColor: {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 1,
-          y2: 1,
-          colorStops: [{
-            offset: 0,
-            color: '#0f2c70' // 0% 处的颜色
-          }, {
-            offset: 1,
-            color: '#091732' // 100% 处的颜色
-          }],
-          globalCoord: false // 缺省为 false
-        },
+        // backgroundColor: {
+        //   type: 'linear',
+        //   x: 0,
+        //   y: 0,
+        //   x2: 1,
+        //   y2: 1,
+        //   colorStops: [{
+        //     offset: 0,
+        //     color: '#0f2c70' // 0% 处的颜色
+        //   }, {
+        //     offset: 1,
+        //     color: '#091732' // 100% 处的颜色
+        //   }],
+        //   globalCoord: false // 缺省为 false
+        // },
         title: {
           text: text,
           x: 'center',
@@ -145,4 +145,5 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+</style>
