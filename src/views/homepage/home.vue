@@ -17,7 +17,7 @@
     <el-row :gutter="20" type="flex" justify="center" class="el-center">
       <el-col :span="8">
         <div class="grid-content bg-purple el-buttom-div">
-          <Dashboard/>
+          <Dashboard :content="content"/>
         </div>
       </el-col>
       <el-col :span="8">
@@ -88,7 +88,19 @@ export default {
     Dashboard
   },
   data() {
-    return {}
+    return {
+      content: {
+        value: 50,
+        title: '底部'
+      }
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      // this.timer = setInterval(this.abc, 500)
+    })
+  },
+  methods: {
   }
 }
 </script>

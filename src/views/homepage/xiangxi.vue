@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="commone">
     <el-row :gutter="20" type="flex" align="middle" class="el-top">
       <el-col :span="8" :offset="9">
         <div class="grid-content bg-purple">
@@ -29,10 +29,12 @@ export default {
 
 <style>
 a:hover {color: #f9fafc;}
-.home {
+.commone {
   width: 100%;
+  height: 100%;
   margin: 0;
   padding: 10px;
+  background-image: url(../../assets/image/bj.jpg);
 }
 .el-row {
   margin-bottom: 20px;

@@ -35,7 +35,7 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.drawLine()
-      this.timer = setInterval(this.drawLine, 3000)
+      this.timer = setInterval(this.drawLine, 1000)
     })
   },
   beforeDestroy() {
@@ -44,8 +44,8 @@ export default {
   methods: {
     drawLine() {
       const value = this.content.value
-      const fontSize = window.innerHeight * 0.02
-      const fontSize1 = fontSize * 1.5
+      const fontSize = window.innerWidth * 0.01
+      const fontSize1 = fontSize * 1.7
       const text = this.content.title
       const echarts = this.$echarts
       const myChart = this.$echarts.init(this.$refs.mydas)
