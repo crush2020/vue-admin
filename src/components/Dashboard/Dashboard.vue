@@ -44,7 +44,6 @@ export default {
   methods: {
     drawLine() {
       const value = this.content.value
-      console.log(value)
       const fontSize = window.innerHeight * 0.02
       const fontSize1 = fontSize * 1.5
       const text = this.content.title
