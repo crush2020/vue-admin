@@ -97,7 +97,7 @@ export default {
           }
         ],
         grid: {
-          right: '6%',
+          right: '10%',
           bottom: '10%',
           left: '2%',
           top: '80px',

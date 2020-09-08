@@ -31,10 +31,8 @@ export default {
 a:hover {color: #f9fafc;}
 .home {
   width: 100%;
-  height: 100%;
   margin: 0;
   padding: 10px;
-  background-image: url(../../assets/image/bj.jpg);
 }
 .el-row {
   margin-bottom: 20px;

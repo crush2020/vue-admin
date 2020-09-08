@@ -52,9 +52,9 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/Detailed',
-    name: 'Detailed',
-    component: () => import('@/views/homepage/Detailed'),
+    path: '/xiangxi',
+    name: 'xiangxi',
+    component: () => import('@/views/homepage/xiangxi'),
     hidden: true
   },
 

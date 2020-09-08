@@ -15,12 +15,23 @@
       </el-col>
     </el-row>
     <el-row :gutter="20" type="flex" justify="center" class="el-center">
-      <el-col :span="20">
+      <el-col :span="8">
+        <div class="grid-content bg-purple el-buttom-div">
+          <Dashboard/>
+        </div>
+      </el-col>
+      <el-col :span="8">
         <div class="grid-top-content bg-purple el-center-div">
+          <div class="el-top-i">采煤机当前位置</div>
           <rotation/>
-          <router-link class="el-top-i" to="/Detailed">
+          <router-link class="el-top-i" to="/xiangxi">
             <span class="el-icon-s-grid"/>点击查看单个设备详细内容
           </router-link>
+        </div>
+      </el-col>
+      <el-col :span="8">
+        <div class="grid-content bg-purple el-buttom-div">
+          <Dashboard/>
         </div>
       </el-col>
     </el-row>
@@ -66,13 +77,15 @@ import Waterpolo from '@/components/Waterpolo/Waterpolo'
 import Piechart from '@/components/Piechart/Piechart'
 import Linechart from '@/components/Linechart/Linechart'
 import Rotation from '@/components/Rotation/Rotation'
+import Dashboard from '@/components/Dashboard/Dashboard'
 
 export default {
   components: {
     Waterpolo,
     Piechart,
     Linechart,
-    Rotation
+    Rotation,
+    Dashboard
   },
   data() {
     return {}
