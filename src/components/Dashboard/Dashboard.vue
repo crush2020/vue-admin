@@ -124,13 +124,37 @@ export default {
             axisLine: {
               lineStyle: {
                 width: 50,
+                // color: [
+                //   // [0, 'rgb(228,93,11)'],
+                //   [0.5, new echarts.graphic.LinearGradient(
+                //     0, 1, 0, 0,
+                //     [{
+                //       offset: 0,
+                //       color: 'rgb(228,93,11)'
+                //     }, {
+                //       offset: 0.8,
+                //       color: 'rgb(235,205,6)'
+                //     }]
+                //   )],
+                //   [0.9, new echarts.graphic.LinearGradient(
+                //     0, 1, 0, 0,
+                //     [{
+                //       offset: 0,
+                //       color: 'rgb(13,211,97)'
+                //     }, {
+                //       offset: 0.6,
+                //       color: 'rgb(235,205,6)'
+                //     }]
+                //   )],
+                //   [1, 'rgb(13,211,97)']
+                // ]
                 color: [
-                  [0, 'rgb(228,93,11)'],
+                  [0, 'rgb(13,211,97)'],
                   [0.5, new echarts.graphic.LinearGradient(
                     0, 1, 0, 0,
                     [{
                       offset: 0,
-                      color: 'rgb(228,93,11)'
+                      color: 'rgb(13,211,97)'
                     }, {
                       offset: 0.8,
                       color: 'rgb(235,205,6)'
@@ -140,13 +164,13 @@ export default {
                     0, 1, 0, 0,
                     [{
                       offset: 0,
-                      color: 'rgb(13,211,97)'
+                      color: 'rgb(228,93,11)'
                     }, {
                       offset: 0.6,
                       color: 'rgb(235,205,6)'
                     }]
                   )],
-                  [1, 'rgb(13,211,97)']
+                  [1, 'rgb(228,93,11)']
                 ]
               }
             },
@@ -234,4 +258,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.Dashboard {
+  background-image: url(../../assets/image/bj.jpg);
+}
+</style>

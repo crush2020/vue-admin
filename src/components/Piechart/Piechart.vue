@@ -123,14 +123,14 @@ export default {
                 padding: [3, 3, 0, -12]
               },
               a: {
-                padding: [-30, 15, -20, 15]
+                padding: [-25, 5, -25, 5]
               }
             }
           },
           labelLine: {
             normal: {
-              length: 20,
-              length2: 30,
+              length: '4%',
+              length2: '5%',
               lineStyle: {
                 width: 1
               }

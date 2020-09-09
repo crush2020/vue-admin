@@ -83,7 +83,7 @@ export default {
             show: true,
             height: 20,
             left: '10%',
-            right: '10%',
+            right: '8%',
             bottom: '2%',
             start: 50,
             end: 100,
@@ -97,9 +97,9 @@ export default {
           }
         ],
         grid: {
-          right: '10%',
+          right: '8%',
           bottom: '10%',
-          left: '2%',
+          left: '%',
           top: '80px',
           containLabel: true
         },

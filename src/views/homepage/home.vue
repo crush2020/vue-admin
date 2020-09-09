@@ -17,7 +17,7 @@
     <el-row :gutter="20" type="flex" justify="center" class="el-center">
       <el-col :span="8">
         <div class="grid-content bg-purple el-buttom-div">
-          <Dashboard :content="content"/>
+          <dashboard :content="content"/>
         </div>
       </el-col>
       <el-col :span="8">
@@ -31,17 +31,17 @@
       </el-col>
       <el-col :span="8">
         <div class="grid-content bg-purple el-buttom-div">
-          <Dashboard/>
+          <dashboard/>
         </div>
       </el-col>
     </el-row>
     <el-row :gutter="20" type="flex" justify="center" class="el-buttom">
-      <el-col :span="4">
+      <el-col :span="8">
         <div class="grid-content bg-purple el-buttom-div">
-          <waterpolo/>
+          <barchart/>
         </div>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="8">
         <div class="grid-content bg-purple el-buttom-div">
           <linechart/>
         </div>
@@ -52,7 +52,7 @@
         </div>
       </el-col>
     </el-row>
-    <!-- <el-row :gutter="20" type="flex" justify="center" class="el-buttom1">
+    <el-row :gutter="20" type="flex" justify="center" class="el-buttom1">
       <el-col :span="4">
         <div class="grid-content bg-purple el-buttom-div">
           <waterpolo/>
@@ -60,15 +60,15 @@
       </el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple el-buttom-div">
-          <linechart/>
+          <waterpolo/>
         </div>
       </el-col>
       <el-col :span="8">
         <div class="grid-content bg-purple el-buttom-div">
-          <piechart/>
+          <waterpolo/>
         </div>
       </el-col>
-    </el-row> -->
+    </el-row>
   </div>
 </template>
 
@@ -78,6 +78,7 @@ import Piechart from '@/components/Piechart/Piechart'
 import Linechart from '@/components/Linechart/Linechart'
 import Rotation from '@/components/Rotation/Rotation'
 import Dashboard from '@/components/Dashboard/Dashboard'
+import Barchart from '@/components/Barchart/Barchart'
 
 export default {
   components: {
@@ -85,7 +86,8 @@ export default {
     Piechart,
     Linechart,
     Rotation,
-    Dashboard
+    Dashboard,
+    Barchart
   },
   data() {
     return {
